@@ -177,8 +177,8 @@ XML tags; enclosed in		\dotfill|t|\w|(|\eqv{)}\w|[|\eqv{]}\w|{|\eqv{\}}\w|<|\eqv
 \subsection*{Marks}
 mark current position, lsit marks	\dotfill|m|$c$\w\w|:marks |$[marks]$\\
 goto local, global / \fst		\dotfill|`|$c$\w\w|`|$C$\w\w|'|$c$\w\w|'|$C$\\
-before jump; last exit, edit, change	\dotfill|``|\w\w|`|$n$\w\w|`"|\w\w|`.|\\
-\begend{operated text / \V}		\dotfill|`[|\w\w|`]|\w\w|`<|\w\w|`>|\\
+before jump; last $n$ exit, edit, change   \dotfill|``|\w\w|`|$n$\w\w|`"|\w\w|`.|\\
+\begend{yanked or changed text / \V}	\dotfill|`[|\eqv{'[}\w\w|`]|\w\w|`<|\w\w|`>|\\
 \prev, \next local mark / \fst		\dotfill|['|\w\w|]'|\w\w|[`|\w\w|]`|\\
 delete, delete local		\dotfill|:delm|\opt{arks} $marks$\w\w|:delm|\opt{arks}|!|
 \section*{\Ex~mode}
@@ -190,7 +190,7 @@ read Ex from file, normal cmds	    \dotfill|:so|\opt{urce}$file$\w\w|:so!|\\
 idem, search in |runtimepath| (|!|$\equiv$all matching)  \dotfill|:ru|\OPT{ntime}{!} $f$
 \subsection*{\Ex~Ranges}
 line nr separator, absolute nr; +- line nr  \dotfill|,|\w\N\w|+|$[n]$\w|-|$[n]$\\
-set cursor to 1st line before interpreting 2nd	\dotfill|;|\\
+use instead of |,| to set cursor to the next line after 1st arg	\dotfill|;|\\
 last line, current; all lines		    \dotfill|$|\w\w|.|\w\w|%|\eqv{1,\$}\\
 visual area, pos of mark $t$		    \dotfill|*|\eqv{'<,'>}\w\w|'|$t$\\
 \next, \prev matching line		    \dotfill|/|$pattern$|[/]|\w\w|?|$pattern$|[?]|
@@ -204,7 +204,7 @@ generate help tags file for directory	\dotfill|:helpt|\opt{ags} $dir$
 \section*{Files and OS}
 format for $edit, new, view...$	\dotfill$cmd$\w$[$|++|$opt]$\w$[$|+|$cmd]$| |$[file]$\\
 reload, edit $f$, edit new	\dotfill|:e|\OPT{dit}{!}\w\w|:e|\OPT{dit}{!}$f$\w\w|:ene|\OPT{w}{!}\\
-|++| options			\dotfill|ff|\eqv{fileformat}\w\w|enc|\w\w|bin|\w\w|nobin|\\
+|++| $options$			\dotfill|ff|\eqv{fileformat}\w\w|enc|\w\w|bin|\w\w|nobin|\\
 open readonly, find in |path| \dotfill|:vie|\opt{w} $f$\w\w\spl|fin|\OPT{d}{!}$f$\\
 edit {\N}th alternate, goto file under cursor	\dotfill|^^|\w\w|gf|\\
 cd, for curr window		\dotfill|:cd |$path$\w\w|:lcd |$path$\\
@@ -217,7 +217,7 @@ write all, write if modified   \dotfill|:wa|\OPT{ll}{!}\w\w|:|\R|up|\OPT{date}{!
 quit	\dotfill|:q|\OPT{uit}{!}\w\w|:qa|\OPT{ll}{!}\w\w|:wq|\Opt{!} $[file]$\w\w|:q!|\eqv{ZQ}\\
 write if mofified \& quit  \dotfill|:x|\OPT{it}{!} $[file]$\eqv{ZZ}\w\w|:xa|\OPT{ll}{!}\\
 read $file$ contents, $cmd$'s $stdout$	\dotfill|:r |$[$|++|$opt]$ $file$\w|:r! |$cmd$\\
-start shell, exec $cmd$, suspend	\dotfill|:sh|\opt{ell}\w\w|!|$cmd$\w\w|:st|\OPT{op}{!}\eqv{\mC{Z}}\\
+start shell, exec $cmd$, suspend	\dotfill|:sh|\opt{ell}\w\w|:!|$cmd$\w\w|:st|\OPT{op}{!}\eqv{\mC{Z}}\\
 filter lines along $\mu$ through external $cmd$ (+\V) \dotfill|!|$\mu$$cmd$\ret\\
 filter \N~lines, range through $cmd$	\dotfill|!!|$cmd$\ret\w\w|:|\R|! |$cmd$\ret\\
 filter through |equalprg|+\V, \N~lines	\dotfill|=|$\mu$\w|==|
@@ -228,28 +228,28 @@ save session; load window	    \dotfill|:mks|\OPT{ession}{!} $[f]$\w|:lo|\opt{adv
 \subsection*{Arguments}
 print, set arglist		    \dotfill|:ar|\opt{gs}\w\w|:ar|\opt{gs} $[files]$\\
 edt {\N}th file,open all	    \dotfill\spl|argu|\opt{ment}\N\w\w|:all|\\
-write \& edit \next, \prev	    \dotfill|:wn|\OPT{ext}{!} $[f]$\w\w|:wN|\opt{ext}\\
+write \& edit \next, \prev	    \dotfill|:wn|\OPT{ext}{!} $[f]$\w\w|:wN|\opt{ext}\eqv{:wprev}\\
 move to\dotfill\spl|n|\opt{ext}\w\w\spl|N|\opt{ext}\w\w\spl|fir|\opt{st}\w\w\spl|la|\opt{st}\\
 set new arglist \& edit 1st file    \dotfill\spl|n|\opt{ext} $files$\\
 exec $cmd$ for each file	    \dotfill|:argdo|\Opt{!} $cmd$
 \subsection*{Buffers}
-show all, including unlisted	    \dotfill|:ls|\w\w|:ls!|\\
-edit all \N buffers; all loaded	    \dotfill\spl|ba|\opt{ll}\w\w\spl|unh|\opt{ide}\\
+show all, include unlisted	    \dotfill|:ls|\w\w|:ls!|\\
+edit all \N~buffers; all loaded	    \dotfill\spl|ba|\opt{ll}\w\w\spl|unh|\opt{ide}\\
 add, del ({\N}th)	    \dotfill|:bad|\opt{d} $fname$\w\w|:bd|\OPT{elete}{!}\\
 unload, total delete	    \dotfill|:bun|\OPT{load}{!}\w\w|:bw|\OPT{ipeout}{!}\\
-go to buffer by \N/$file$, {\N}th modified	\dotfill\spl|b|\OPT{uffer}{!}\w\spl|bm|\OPT{odified}{!}\\
+edit buf by $num$/$name$, {\N}th modified	\dotfill\spl|b|\OPT{uffer}{!}\w\spl|bm|\OPT{odified}{!}\\
 {\N}th \next, \prev; \tostart, \toend	\dotfill\spl|bn|\OPT{ext}{!}\w|:bN|\OPT{ext}{!}\w\spl|bf|\OPT{irst}{!}\w\spl|bl|\OPT{ast}{!}\\
 exec $cmd$ in each buffer   \dotfill|:bufdo|\Opt{!} $cmd$
 \subsection*{Tabs}
 new page file			    \dotfill|:tabe|\opt{dit}\eqv{:tabnew}$[$|++|$opt] [+cmd] [file]$\\
 find file and open new page 	    \dotfill|:tabf|\opt{ind}$[$|++|$opt] [+cmd] [file]$\\
 exec $cmd$ opening tab \#\N~instead of window	\dotfill|:|\N|tab|\w$cmd$\\
-open file under cursor in a new page	\dotfill|^Wgf|\\
-close; all other		    \dotfill|:tabc|\OPT{lose}{!}\N\w|:tabo|\OPT{nly}{!}\\
+file under cursor; close, others    \dotfill|^Wgf|\w|:tabc|\OPT{lose}{!}\N\w|:tabo|\OPT{nly}{!}\\
 |:tabn|\opt{ext}\eqv{gt}\N\w|:tabN|\opt{ext}\eqv{gT}\eqv{:tabprev}\w|:tabr|\opt{ewind}\w|:tabl|\opt{ast}\\
-list, reorder, iterate			\dotfill|:tabs|\w|:tabm|\opt{ove}\N\w|:tabd|\opt{o}$cmd$
+list,move after {\N}th,iterate	\dotfill|:tabs|\w|:tabm|\opt{ove}\N\w|:tabd|\opt{o}$cmd$
 \section*{Syntax highlighting and filetype detection}
-start, stop; list	    \dotfill|:sy|\opt{ntax}| enable,on,off|\w\w|:sy [list]|\\
+start, start and force defaults		\dotfill|:sy|\opt{ntax}| enable|\w\w|:sy on|\\
+stop; list syntax items			\dotfill|:sy off|\w\w|:sy [list]|\\
 filetype detection	    \dotfill|:filet|\opt{ype} $[$|plugin|$] [$|indent|$] [$|on|$\vert$|off|$]$\\
 sync			    \dotfill|:sy sync |$[$|ccomment|$\vert$|fromstart|$\vert$~\OPT{min}{max}|lines=|$n]$\\
 clear info		    \dotfill|:sy|\opt{ntax}| clear|\w\w|:hi|\opt{ghlight}| clear|\\
@@ -263,11 +263,11 @@ split \& start new, vertical	\dotfill|^Wn|\eqv{\mathtt{:new}~[file]}\w\w|:vne|\o
 close, +hide buffer		\dotfill|^Wc|\eqv{\mathtt{:cl[ose][!]}}\w\w|:hid|\opt{e} $[cmd]$\\
 make current window only one	\dotfill|^Wo|\eqv{\mathtt{:on[ly]}}\\
 move cursor $\leftrightarrow \updownarrow$  \dotfill|^Wh|\w\w|^Wl|\w\w|^Wj|\w\w|^Wk|\\
-cursor $\nwarrow, \searrow$ (wrap)	    \dotfill|^WW|\w\w|^W^W|\eqv{\mC{W}w}\\
+move cursor to window $\nwarrow, \searrow$ (wrapping)   \dotfill|^WW|\w\w|^W^W|\eqv{\mC{W}w}\\
 cursor $\Nwarrow, \Searrow$, \prev (last active)    \dotfill|^Wt|\w\w|^Wb|\w\w|^Wp|\\
 goto preview, exchange curr window with \next	    \dotfill|^WP|\w\w|^Wx|\\
 move window $\leftrightarrow \updownarrow$  \dotfill|^WH|\w\w|^WL|\w\w|^WJ|\w\w|^WK|\\
-rotate $\searrow, \nwarrow$		    \dotfill|^Wr|\w\w|^WR|\\
+rotate windows in column/row $\searrow, \nwarrow$    \dotfill|^Wr|\w\w|^WR|\\
 size =, height +, -, \N			    \dotfill|^W=|\w\w|^W+|\w\w|^W-|\w\w|^W_|\\
 width +, -, \N				    \dotfill|^W>|\w\w|^W<|\w\w|^W|\Verb+|+\\
 cmd-line history window, search history	    \dotfill|q:|\w\w|q/|\w\w|q?|\\
@@ -275,7 +275,7 @@ exec $cmd$ in each window		    \dotfill|:windo|\Opt{!} $cmd$\\
 edit file in preview window	    \dotfill|:ped|\OPT{it}{!} $[$|++|$opt]$ $[+cmd]$ $file$\\
 close preview window		    \dotfill|^Wz|\eqv{\mathtt{:pc[lose]}}
 \subsection*{Scrolling}
-{\small\bldown}|^E|, {\small\blup}|^Y|\dotfill\down|^D|, \up|^U|\dotfill\Down|^F|, \Up|^B|\\
+{\small\bldown}|^E|\w\w{\small\blup}|^Y|\dotfill\down|^D|\w\w\up|^U|\dotfill\Down|^F|\w\w\Up|^B|\\
 curr line in window {\small\APLdownarrowbox\APLinv\APLuparrowbox} \dotfill|zb|\eqv{\mathtt{z-}}\w\w|zz|\eqv{\mathtt{z.}}\w\w|zt|\eqv{\mathtt{z\ret}}\\
 $\leftrightarrow, \Leftrightarrow$	\dotfill|zh|\w\w|zl|\w\w|zH|\w\w|zL|
 \subsection*{Diff mode}
@@ -283,9 +283,9 @@ start, stop	    \dotfill|:diffs|\opt{plit} $f$\w|:diffpa|\opt{tch} $f$\w|:diffof
 jump \toleft, \toright~to \ibeg~of change   \dotfill|[c|\w\w|]c|\\
 get (obtain), put change, update	    \dotfill|do|\w\w|dp|\w\w|:diffu|\opt{pdate}
 \subsection*{Quickfix}
-display {\N}th error, \next, \prev	    \dotfill|:cc|\Opt{!} $[$\N$]$\w\w|:cn|\w\w|:cN|\\
-1st err in {\N}th~\next~file, last in \prev	    \dotfill|:cnf|\opt{ile}\w\w|:cNf|\opt{ile}\\
-\tostart, \toend; \prev, \next~errlist	    \dotfill|:cfir|\opt{st}\w|:cla|\opt{st}\w|:col|\w|:cnew|\\
+display {\N}th error, \next, \prev	    \dotfill|:cc|\Opt{!} $[$\N$]$\w\w|:cn|\Opt{!}\w\w|:cN|\Opt{!}\eqv{:cp}\\
+1st err in {\N}th~\next~file, last in \prev	    \dotfill|:cnf|\OPT{ile}{!}\w\w|:cNf|\OPT{ile}{!}\eqv{:cpf}\\
+\tostart, \toend; \prev, \next~errlist	    \dotfill|:cfir|\OPT{st}{!}\w|:cla|\OPT{st}{!}\w|:col|\OPT{der}{!}\w|:cnew|\Opt{!}\\
 list, read from $f$			    \dotfill|:cl |$[from,[to]]$\w\w|:cf |$[f]$\\
 open, close; toggle			    \dotfill|:cope|$[height]$\w\w|:ccl|\w\w|:cw| $[height]$\\
 jump with split; use $compiler$		    \dotfill|^W|\ret\w\w|:comp|\OPT{iler}{!}$compiler$\\
@@ -302,7 +302,7 @@ eliminate folds in window   \dotfill|zE|\\
 \begend{fold}, $\updownarrow$	\dotfill|[z|\w\w|]z|\w\w|zj|\w\w|zk|
 \section*{Messages}
 redir messages (|>>| to append)	    \dotfill|:redi|\OPT{r}{!}| >| $file$\w|:redi|\opt{r}| END|\\
-to reg, append to reg		    \dotfill|:redir @|$c$|>|\w|:redir @|$C$|>|\eqv{\mathtt{:redir~@}c>>}\\
+to reg,append to reg		    \dotfill|:redi @|$c$|>|\w|:redi @|$C$|>|\eqv{\mathtt{:redi~@}c>>}\\
 view messages, last msg		    \dotfill|:mes|\opt{sages}\w\w|:echo errmsg|\\
 exec silently, verbosely	    \dotfill|:sil|\OPT{ent}{!} $cmd$\w\w|:|\N|verb|\opt{ose} $cmd$\\
 ask confirmations		    \dotfill|:confirm |$cmd$\\
@@ -320,18 +320,19 @@ format text, +keep cursor pos	    \dotfill|gq|$\mu$\w\w|gw|$\mu$\\
 realign				    \dotfill|:|\R|ce|\opt{nter}\N\w\w|:|\R|le|\opt{ft}\N\w\w|:|\R|ri|\opt{ght}\N\\
 adjust whitespaces		    \dotfill|:|\R|ret|\OPT{ab}{!} $[tabstop]$\\
 change list, {\N}th \prev, \next pos		    \dotfill|:changes|\w\w|g;|\w\w|g,|\\
-insert \after{\ibeg}gI\w\w\before{\ibeg}I(\B)\w\w\w\before{i}\w\w\w\after{a}\w\w\w\after{A\iend}(\B)\w\w$_\rightarrow$o\w\w$^\rightarrow$O
+insert	\dotfill\before{i}\w\w\w\after{a}\w\w\w\after{\ibeg}I(\B)\w\w\after{A\iend}(\B)\w\w$_\rightarrow$o\w\w$^\rightarrow$O\\
+in column 1, last stopped insert (use |'^| mark)	\dotfill|gI|\w\w|gi|\\
 record macro into reg, append, stop	\dotfill|q|$c$\w\w|q|$C$\w\w|q|\\
 exec the contents of reg, repeat last	\dotfill|@|$c$\w\w|@@|
 \subsection*{Delete}
 \N chars $\mapsto$, \toleft~(relative to cursor)    \dotfill|x|\eqv{del}\w\w|X|\\
-over $\mu$ (+\V), \N lines, \toend (\N-1 lines)	    \dotfill|d|$\mu$\w\w|dd|\w\w|D|\\
+over $\mu$ (+\V), \N~lines, \toend (and \N-1 whole lines)	\dotfill|d|$\mu$\w\w|dd|\w\w|D|\\
 join lines (+\V), w/o inserting spaces(+\V)	    \dotfill|J|\w\w|gJ|\\
-\R~into register $c$				    \dotfill|:|\R|d|\opt{elete} $c$ $[$\N$]$
+\N~lines starting from \R~into register $c$	    \dotfill|:|\R|d|\opt{elete} $c$ $[$\N$]$
 \subsection*{Copying and moving text}
 use reg $c$ for \next del, yank, put; append to reg	\dotfill|"|$c$\w\w|"|$C$\\
 yank into reg (+\V), \N~lines				\dotfill|y|$\mu$\w\w|yy|\eqv{Y}\\
-put reg \before{cursor}\after{}/leave cursor~after	\dotfill|P|\w\w|p|\w\w|gP|\w\w|gp|\\
+put reg \before{cursor}\after{}/leave cursor after new text \dotfill|P|\w\w|p|\w\w|gP|\w\w|gp|\\
 like p P, but adjst indent to curr line			\dotfill|]p|\w\w|[p|\\
 show contents of reg(s)					\dotfill|:reg|\opt{isters} $[c]$\\
 special regs: last del or yank, small del   \dotfill|"|\w\w|-|\\
@@ -342,21 +343,21 @@ special regs: last del or yank, small del   \dotfill|"|\w\w|-|\\
 \subsection*{Undo/Redo}
 undo, undo line, redo; repeat change		\dotfill|u|\w\w|U|\w\w|^R|\w\w\N.\\
 jump to after {\N}th change, list changes	\dotfill|:u|\opt{ndo}\N\w|:undol|\opt{ist}\\
-go to older state, newer			\dotfill|:earlier|\N\eqv{Ng-}\w|:later|\N\eqv{eg+}
+go to older state, newer			\dotfill|:earlier|\N\eqv{Ng-}\w|:later|\N\eqv{Ng+}
 \section*{Insert mode}
-leave mode, for one cmd	only		\dotfill$esc$\eqv{\mC{C}}\eqv{\mC{[}}\w\w|^O|\\
-leave mode for one cmd and don't move the cursor \dotfill|^\^O|\\
-move by words, whole pages	\dotfill|Shft|$\leftrightarrows$\w\w|S-PgUp/Dn|\\
+leave mode; for one cmd, keep cursor   \dotfill$esc$\eqv{\mC{C}}\eqv{\mC{[}}\w\w|^O|\w|^\^O|\\
+move by words, whole pages	\dotfill|Shift|$\leftrightarrows$\w\w|S-PgUp/Dn|\\
 scroll \up, \down; insert char from \down\up	\dotfill|^X^E|\w\w|^X^Y|\w\w|^E|\w\w|^Y|\\
 insert char literally, by decimal value	\dotfill|^V|$c$\w\w|^V|$n$\\
 repeat recent insert; + stop		\dotfill|^A|\w\w|^@|\\
 \next,\prev match; indent \toright,\toleft\dotfill|^N|\w\w|^P|\w\w|^T|\w\w|^D|\\
 del all indent, +restore in next line	\dotfill|0^D|\w\w|^^D|\\
-special completion, file, whole line, def   \dotfill|^X|\w|^F|\w|^L|\w|^D|\\
+special completion: file, whole line, def   \dotfill|^X|\w|^F|\w|^L|\w|^D|\\
 {\indy}included file, tag, cmdline	\dotfill|^I|\w\w|^]|\w\w|^V|\\
-{\indy}word from dict, thesaurus, {\tt 'complete'}\dotfill|^K|\w\w|^T|\w\w|^N|\\
-{\indy}keywords,user-defined, omni		\dotfill|^N|\w\w|^U|\w\w|^O|\\
-{\indy}spelling: 1st suggestion, \next, \prev	\dotfill|s|\w\w|^N|\w\w|^P|\\
+{\indy}word from dict, thesaurus, spelling 	\dotfill|^K|\w\w|^T|\w\w|^S|\\
+{\indy}keywords,user-defined, omni		\dotfill|^N|\w\w|^P|\w\w|^U|\w\w|^O|\\
+{\indy}during completion: \next, \prev match	\dotfill|^N|\w\w|^P|\\
+further |^X|\ldots will copy words following \prev expansion\\
 del word before, all entered chars in line	\dotfill|^W|\w\w|^U|\\
 line \down~to column where insert started, \up  \dotfill|^Gj|\w\w|^Gk|\\
 start new undoable edit; toggle |lmap|		\dotfill|^Gu|\w\w|^^|\\
@@ -367,7 +368,7 @@ reg literally fixing indent, don't autoindent	\dotfill|^R^P|$c$\w\w|^R^O|$c$
 repeat last, in opposite dir, \toright, \toleft	\dotfill|n|\w\w|N|\w\w|/|\ret\w\w|?|\ret\\
 {\N}th \toright,\toleft~keyword/part under cursor	\dotfill|*|\w\w|#|\w\w|g*|\w\w|g#|\\
 stop highlighting if |hlsearch| is set	    \dotfill|:noh|\opt{lsearch}\\
-subst $patt$ with $str$			    \dotfill|:|\R|s|\opt{ubstitute}|/|$patt$|/|$str$|/| $[flags]$ $n$\\
+subst $patt$ with $str$ in $n$~lines	    \dotfill|:|\R|s|\opt{ubst}|/|$patt$|/|$str$|/| $[flags]$ $n$\\
 repeat with new flags			    \dotfill|:|\R|s|\eqv{\&\&} $flags$\\
 subst last used search pattern with last $subst$    \dotfill|:|\R|~| $flags$\\
 repeat w/o flags on curr line; w/flags everywhere    \dotfill|&|\w\w|g&|\\
@@ -407,19 +408,19 @@ $n$ lines \down,\up~in column 1	    \dotfill$n$\eqv{+n}\w\w|-|$n$\\
 $n$ chars \toright,\toleft~from \enbeg{match}	\dotfill|e|\opt{+n}\w\w|e|\opt{-n}\w\w|s|\opt{+n}\w\w|s|\opt{-n}\\
 execute $searchcmd$ next		    \dotfill|;|$searchcmd$
 \section*{Spell checking}
-\next, \prev misspelled word, bad only	\dotfill|]s|\w|[s|\w|]S|\w|[S|\\
-add a good/wrong word to |'spellfile'|	\dotfill|zg|\w|zw|\\
+\next, \prev misspelled word, stop at bad only	\dotfill|]s|\w|[s|\w|]S|\w|[S|\\
+add a good/wrong word to |spellfile|	\dotfill|zg|\w|zw|\\
 {\IND}temporarily		    	\dotfill|zG|\w|zW|\\
 undo adding				\dotfill|zuw|\w|zug|\w|zuW|\w|zuG|\\
 correct spelling, repeat everywhere     \dotfill|z=|\w|:spellr|\opt{epall}
 \section*{Autocommands}
 create, list	\dotfill|:au| $[grp]$ $event$ $patt{\vert}$|<|\emph{buffer}|>| |[nested]| $cmd$\\
 remove	\dotfill|:au!|\opt{tocmd} $[grp$ $[event{\vert}$|*| $[patt$ |[nested]| $cmd]]]$\\
-define group for next autocmds, !$\equiv$del	\dotfill|:aug|\OPT{roup}{!}$name\vert$|END|
+define group for next autocmds (!$\equiv$del)    \dotfill|:aug|\OPT{roup}{!}$name\vert$|END|
 \section*{Command-line mode}
 \begend{command line}, reg contents	\dotfill|^B|\w\w|^E|\w\w|^R|$c$\\
 insert word under cursor, WORD		\dotfill|^R^W|\w\w|^R^A|\\
-insert filename, expanded with |'path'|	\dotfill|^R^F|\w\w|^R^P|\\
+insert filename, expanded with |path|	\dotfill|^R^F|\w\w|^R^P|\\
 delete word, chars till start of line	\dotfill|^W|\w\w|^U|\\
 insert char literally, by decimal val	\dotfill|^V|$c$\w\w|^V|$n$\\
 $\updownarrow$ history, by entered prefix   \dotfill$Shift\updownarrow\equiv${\it PageUp/PageDn}\w\w$\updownarrow$\\
@@ -432,7 +433,7 @@ exec reg as an \Ex~cmd, repeat last	\dotfill|:@|$c$\w\w|:@@|
 \subsection*{Completion}
 list all matches, insert all matches	\dotfill|^D|\w\w|^A|\\
 longest common, \next, \prev		\dotfill|^L|\w\w|^N|\w\w|^P|\\
-add char from the curr match for |/| \& |?| if |'is'| is on    \dotfill|^L|
+|/|\&|?|+|incsearch|: add char from the end of curr match  \dotfill|^L|
 \section*{Visual mode}
 start/stop char-wise, line-wise \V, \B		    \dotfill|v|\w\w|V|\w\w|^V|\\
 exchange cursor pos cross-wise, line-wise	    \dotfill|o|\w\w|O|\\
@@ -445,7 +446,7 @@ select from list, jump (if 1) or select	\dotfill\spl|ts|\OPT{elect}{!} $t$\w\w\s
 tag under cursor, select, jump		\dotfill|^]|\w\w|g]|\w\w|g^]|\\
 split: tag under cursor, select, jump	\dotfill|^W^]|\w\w|^Wg]|\w\w|^Wg^]|\\
 \toright,\toleft,\tostart,\toend	\dotfill|:tn|\OPT{ext}{!}\w\w|:tp|\OPT{rev}{!}\w\w|:tf|\OPT{irst}{!}\w\w|:tl|\OPT{ast}{!}\\
-display unknown include files, all	\dotfill|:che|\OPT{ckpath}{!}
+display unknown/(!$\equiv$all) include files	\dotfill|:che|\OPT{ckpath}{!}
 \subsection*{Keywords and macro definitions}
 display 1st line with keyword, all lines	    \dotfill|[i|\w\w|[I|\\
 idem, but start from curr line			    \dotfill|]i|\w\w|]I|\\
@@ -454,16 +455,16 @@ keyword, macrodef with split	    \dotfill|^Wi|\eqv{\mC{W}\mC{I}}\w\w|^Wd|\eqv{\m
 display 1st line in range with kwd	\dotfill|:|\R|is|\OPT{earch}{!}[\N] $[/]pattern$\\
 split |:isearch|			\dotfill|:|\R|isp|\OPT{lit}{!} [\N] $[/]pattern$\\
 display all lines, jump			\dotfill|:|\R|il|\OPT{ist}{!} $[/]pattern$\w\w|:ij|\OPT{ump}{!}\\
-local, global identifier declaration		    \dotfill|gd|\w\w\w|gD|\\
-the same, ignoring matches in sibling blocks	    \dotfill|1gd|\w\w|1gD|\\
-for macrodefs commands, replace |(i,I)|$\longmapsto$|(d,D)|
+for macrodefs commands, replace |(i,I)|$\longmapsto$|(d,D)|\\
+non-tag: local, global identifier declaration		    \dotfill|gd|\w\w\w|gD|\\
+non-tag: ignoring matches in sibling blocks	    \dotfill|1gd|\w\w|1gD|
 \subsection*{Preview window}
 {\ind}|:pta|\OPT{g}{!} $t$\w\w|:pp|\OPT{op}{!}\w\w|:ptn|\OPT{ext}{!}\w\w|:pts|\OPT{elect}{!} $t$\ldots\\
 tag under cursor, jump		\dotfill|^W}|\w\w|^Wg}|\\
 1st line in range with keyword	    \dotfill|:|\R|ps|\OPT{earch}{!}[\N]$[/]pattern$
 \subsection*{Cscope}
 invocation format		    \dotfill\spl|cs|\opt{cope} $cmd$ $[args]$\\
-commands: add connection	    \dotfill|add |$path$ $[-Ppath]$ $[flags]$\\
+commands: connect database	    \dotfill|add |$path$ $[$|-P|$path]$ $[flags]$\\
 {\indy}show connections, help	    \dotfill|show|\w\w|help|\\
 {\indy}reset, kill connections	    \dotfill|reset|\w\w|kill |$num{\vert}partialname$\\
 find symbol, definition, callee, caller\dotfill|find s|\w|g|\w|d|\w|c|\\
@@ -502,8 +503,8 @@ action for buffer without window		\dotfill|bufhidden bh|\\
 whether show buffer in the buffer list		\dotfill|buflisted bl|\\
 the type of a buffer				\dotfill|buftype bt|\\
 list of directories searched with |:cd|		\dotfill|cdpath cd|\\
-use clipboard as unnamed reg			\dotfill|clipboard cb|\\
 number of columns in the display		\dotfill|columns co|\\
+how keyword completion (|^P|, |^N|) works	\dotfill|complete cpt|\\
 ask about unsaved/read-only files		\dotfill|confirm cf|\\
 use cscope for tag commands			\dotfill|cscopetag cst|\\
 |:cstag| order (|0| - cscope 1st; |1|...)	\dotfill|cscopetagorder csto|\\
