@@ -2,6 +2,8 @@
 % PostScript:	    dvips vimquickref.dvi
 % PDF:		    dvipdfm vimquickref.dvi
 % Author:	    sergey.khorev@gmail.com
+% URL		    http://www.vim.org/scripts/script.php?script_id=2906
+% Last Change:	    2010 Jan 16
 % Some ideas were taken from 'VIM Desktop Reference' by Sebastian Menge
 
 \documentclass[10pt,a4paper,landscape]{article}
@@ -166,7 +168,7 @@ while entering count: delete last char	\dotfill$del$
 word \toright,\toleft~/ WORD		    \dotfill|w|\w\w|b|\w\w|W|\w\w|B|\\
 \iend~of word \toright,\toleft~/ WORD	    \dotfill|e|\w\w|ge|\w\w|E|\w\w|gE|\\
 sentence \toright,\toleft~/ paragraph	    \dotfill|)|\w\w|(|\w\w|}|\w\w|{|\\
-section \toright,\toleft~at \be		    \dotfill|]]|\w\w|[[|\w\w|][|\w\w|[]|\\
+section \toright~at \be; \toleft	    \dotfill|]]|\w\w|][|\w\w|[[|\w\w|[]|\\
 |(|, |{|, |)|, |}|, |/*|, |*/|		    \dotfill|[(|\w\w|[{|\w\w|])|\w\w|]}|\w\w|[*|\w\w|]*|\\
 \toleft,\toright~Java method \be	    \dotfill|[m|\w\w|]m|\w\w|[M|\w\w|]M|\\
 \toleft,\toright~unclosed |#if|, |#else|, |#endif|	\dotfill|[#|\w\w|]#|
@@ -175,7 +177,7 @@ text $\mathcal{O}$bject, inner $\mathcal{O}$bject		    \dotfill|a|$\mathcal{O}$\
 $\mathcal{O}$: word, WORD, sentence, paragraph	    \dotfill|w|\w\w|W|\w\w|s|\w\w|p|\\
 XML tags; enclosed in		\dotfill|t|\w|(|\eqv{)}\w|[|\eqv{]}\w|{|\eqv{\}}\w|<|\eqv{>}\w|"|\w|'|\w|`|
 \subsection*{Marks}
-mark current position, lsit marks	\dotfill|m|$c$\w\w|:marks |$[marks]$\\
+mark current position, list marks	\dotfill|m|$c$\w\w|:marks |$[marks]$\\
 goto local, global / \fst		\dotfill|`|$c$\w\w|`|$C$\w\w|'|$c$\w\w|'|$C$\\
 before jump; last $n$ exit, edit, change   \dotfill|``|\w\w|`|$n$\w\w|`"|\w\w|`.|\\
 \begend{yanked or changed text / \V}	\dotfill|`[|\eqv{'[}\w\w|`]|\w\w|`<|\w\w|`>|\\
@@ -283,7 +285,7 @@ start, stop	    \dotfill|:diffs|\opt{plit} $f$\w|:diffpa|\opt{tch} $f$\w|:diffof
 jump \toleft, \toright~to \ibeg~of change   \dotfill|[c|\w\w|]c|\\
 get (obtain), put change, update	    \dotfill|do|\w\w|dp|\w\w|:diffu|\opt{pdate}
 \subsection*{Quickfix}
-display {\N}th error, \next, \prev	    \dotfill|:cc|\Opt{!} $[$\N$]$\w\w|:cn|\Opt{!}\w\w|:cN|\Opt{!}\eqv{:cp}\\
+display {\N}th error, \next, \prev	    \dotfill|:|\opt{.}|cc|\Opt{!} $[$\N$]$\w\w|:cn|\Opt{!}\w\w|:cN|\Opt{!}\eqv{:cp}\\
 1st err in {\N}th~\next~file, last in \prev	    \dotfill|:cnf|\OPT{ile}{!}\w\w|:cNf|\OPT{ile}{!}\eqv{:cpf}\\
 \tostart, \toend; \prev, \next~errlist	    \dotfill|:cfir|\OPT{st}{!}\w|:cla|\OPT{st}{!}\w|:col|\OPT{der}{!}\w|:cnew|\Opt{!}\\
 list, read from $f$			    \dotfill|:cl |$[from,[to]]$\w\w|:cf |$[f]$\\
@@ -293,12 +295,12 @@ make, grep			    \dotfill|:make |$[args]$\w\w|:gr|\opt{ep}$[args]$\w|:grepa|\OPT
 built-in; recurse dirs patt	\dotfill|:vim|\OPT{grep}{!}$/patt/$|[g][j]| $f$...\w\w|**|\\
 the same for location list		    \dotfill|:ll|\w|:lne|\opt{xt}\w|:lnf|\opt{ile}...\w|:lmak|\opt{e}
 \subsection*{Folding}
-define fold manually (+\V)  \dotfill|zf|$\mu$\w|:|\R|fold|\\
-open, close / all	    \dotfill|zo|\w\w|zc|\w\w|zO|\w\w|zC|\\
+fold manually (+\V); update\&view curr    \dotfill|zf|$\mu$\eqv{:Rfold}\w\w|zx|\\
+open, close / all; update   \dotfill|zo|\w\w|zc|\w\w|zO|\w\w|zC|\w\w|zX|\\
 delete, switch state / all  \dotfill|zd|\w\w|za|\w\w|zD|\w\w|zA|\\
 fold more, reduce / all	    \dotfill|zm|\w\w|zr|\w\w|zM|\w\w|zR|\\
 fold none, normal (restore), invert \dotfill|zn|\w\w|zN|\w\w|zi|\\
-eliminate folds in window   \dotfill|zE|\\
+eliminate folds in window; view cursor line   \dotfill|zE|\w\w|zv|\\
 \begend{fold}, $\updownarrow$	\dotfill|[z|\w\w|]z|\w\w|zj|\w\w|zk|
 \section*{Messages}
 redir messages (|>>| to append)	    \dotfill|:redi|\OPT{r}{!}| >| $file$\w|:redi|\opt{r}| END|\\
@@ -384,8 +386,7 @@ literal |^|, |$| in pattern; |&| in replace string \dotfill|\^|\w\w|\$|\w\w|\&|\
 char from set, range, not	    \dotfill|[|$abc$|]|\w\w|[|$a$|-|$z$|]|\w\w|[^|...|]|\\
 digit, hex digit/not		    \dotfill|\d|\w\w|\x|\w\w|\D|\w\w|\X|\\
 alphabetic, word char/not	    \dotfill|\a|\w\w|\w|\w\w|\A|\w\w|\W|\\
-lowercase, uppercase/not	    \dotfill|\l|\w\w|\u|\w\w|\L|\w\w|\U|\\
-ignore case, force matching case    \dotfill|\c|\w\w|\C|\\
+lower/uppercase, ignore; not	    \dotfill|\l|\w|\u|\w|\c|\w\w|\L|\w|\U|\w|\C|\\
 identifier char, keyword/excl digits\dotfill|\i|\w\w|\k|\w\w|\I|\w\w|\K|\\
 filename char, printable/excl digits\dotfill|\f|\w\w|\p|\w\w|\F|\w\w|\P|\\
 end-of-line, last subst; char class $x$+$EOL$	\dotfill|\n|\w\w|~|\w\w|\_|$x$\\
@@ -397,7 +398,9 @@ matched group \#$1$...$9$, whole match	\dotfill|\1|...|\9|\w\w|\0|\eqv{\&}\\
 count: $0^+$, $1^+$, $0...1$, $k...n$	\dotfill|\{}|\eqv{*}\w\w|\+|\w\w|\=|\eqv{\backslash?}\w\w|\{|$k$|,|$n$|}|\\
 $k$, $k^+$, $0...n$ matches	    \dotfill|\{|$k$|}|\w\w|\{|$k$|,}|\w\w|\{,|$n$|}|\\
 non-greedy			    \dotfill|\{-}|\w|\{-|$k$|,|$n$|}|\w|\{-|$k$|}|\w|\{-|$k$|,}|\w|\{-,|$n$|}|\\
-atom \A~as a whole w/o backtracking \dotfill\A|\@>|
+atom \A~as a whole w/o backtracking \dotfill\A|\@>|\\
+subst: make upper/lower-case; until |\e|	    \dotfill|\u|\w|\l|\w|\U|\w|\L|\\
+subst: prev replacement, split line, |<NL>|	    \dotfill|~|\w\w|\r|\w\w|\n|
 \subsection*{Advanced zero width patterns}
 match at mark, before, after	    \dotfill|\%'|$m$\w|\%<'|$m$\w|\%>'|$m$\\
 match at atom \A, not match	    \dotfill\A|\@=|\w\w\A|\@!|\\
@@ -409,8 +412,7 @@ $n$ chars \toright,\toleft~from \enbeg{match}	\dotfill|e|\opt{+n}\w\w|e|\opt{-n}
 execute $searchcmd$ next		    \dotfill|;|$searchcmd$
 \section*{Spell checking}
 \next, \prev misspelled word, stop at bad only	\dotfill|]s|\w|[s|\w|]S|\w|[S|\\
-add a good/wrong word to |spellfile|	\dotfill|zg|\w|zw|\\
-{\IND}temporarily		    	\dotfill|zG|\w|zW|\\
+add a good/wrong word to |spf|; temp	\dotfill|zg|\w|zw|\w|zG|\w|zW|\\
 undo adding				\dotfill|zuw|\w|zug|\w|zuW|\w|zuG|\\
 correct spelling, repeat everywhere     \dotfill|z=|\w|:spellr|\opt{epall}
 \section*{Autocommands}
